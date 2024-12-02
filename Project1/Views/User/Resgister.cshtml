@@ -1,0 +1,142 @@
+﻿@model Project1.ViewModels.RegisterUserViewModel
+
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6 Sister's Pizza</title>
+    <style>
+        .btn-dark {
+            background-color: rgb(255, 112, 7) !important;
+            border-color: rgb(255, 112, 7) !important;
+            color: white !important;
+        }
+
+        .btn-outline-dark {
+            color: rgb(255, 112, 7) !important;
+            border-color: rgb(255, 112, 7) !important;
+        }
+
+            .btn-outline-dark:hover {
+                background-color: rgb(255, 112, 7) !important;
+                color: white !important;
+            }
+    </style>
+</head>
+<body>
+    <!-- partial:index.partial.html -->
+    <!DOCTYPE html>
+    <html lang="es" dir="ltr">
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    </head>
+    <body>
+        <!-- Login 8 - Bootstrap Brain Component -->
+        <section class="bg-light p-2 p-md-3 p-xl-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-xxl-11">
+                        <div class="card border-light-subtle shadow-sm">
+                            <div class="row g-0">
+                                <div class="col-12 col-md-6">
+                                    <img class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="../ImagesProduct/PZmargherita.png" alt="Welcome back you've been missed!">
+                                </div>
+                                <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                                    <div class="col-12 col-lg-11 col-xl-10">
+                                        <div class="card-body p-1 p-md-2 p-xl-3">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="mb-4">
+                                                        <div class="text-center mb-3">
+                                                            <a asp-controller="Home" asp-action="WelcomePage">
+                                                                <img src="../1LayoutIndex/logo_web.jpg" alt="Pizza 6 Sisters Logo" width="130" height="130" style="border-radius: 50%;">
+                                                            </a>
+                                                        </div>
+                                                        <h4 class="text-center">Đăng ký</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <form asp-action="Resgister">
+                                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                        <div class="form-group">
+                                                            <label asp-for="FirstName" class="control-label">Họ</label>
+                                                            <input asp-for="FirstName" class="form-control" />
+                                                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group" style="padding-top: 5px;">
+                                                            <label asp-for="LastName" class="control-label">Tên</label>
+                                                            <input asp-for="LastName" class="form-control" />
+                                                            <span asp-validation-for="LastName" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group" style="padding-top: 5px;>
+                                                            <label asp-for="Nickname" class="control-label">Biệt danh</label>
+                                                            <input asp-for="Nickname" class="form-control" />
+                                                            <span asp-validation-for="Nickname" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group" style="padding-top: 5px;>
+                                                            <label asp-for="Email" class="control-label">Email</label>
+                                                            <input asp-for="Email" class="form-control" />
+                                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group" style="padding-top: 5px;>
+                                                            <label asp-for="PhoneNumber" class="control-label">Số điện thoại</label>
+                                                            <input asp-for="PhoneNumber" class="form-control" />
+                                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group" style="padding-top: 5px;>
+                                                            <label asp-for="Password" class="control-label">Mật khẩu</label>
+                                                            <input asp-for="Password" class="form-control" />
+                                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group" style="padding-top: 5px;>
+                                                            <label asp-for="ConfirmPassword" class="control-label">Xác nhận mật khẩu</label>
+                                                            <input asp-for="ConfirmPassword" class="form-control" />
+                                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group" style="padding-top: 5px;>
+                                                            <label asp-for="Address" class="control-label">Địa chỉ</label>
+                                                            <input asp-for="Address" class="form-control" />
+                                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                                        </div>
+                                                        
+                                                        <div class="form-group col-12" style="margin-top: 15px;">
+                                                            <div class="d-grid">
+                                                                <button class="btn btn-dark btn-lg" type="submit">Đăng kí</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="d-flex gap-2 gap-md-3 flex-column flex-md-row justify-content-md-center mt-3">
+                                                                <a asp-controller="Login" asp-action="Index" class="link-secondary text-decoration-none">Quay lại</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </section>
+    </body>
+</html>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

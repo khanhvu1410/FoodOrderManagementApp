@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Sixter's Pizza</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../1LayoutIndex/assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../1LayoutIndex/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../1LayoutIndex/assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../1LayoutIndex/assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="../1LayoutIndex/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="../1LayoutIndex/assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="../1LayoutIndex/assets/css/theme.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" data-navbar-on-scroll="data-navbar-on-scroll">
+            <div class="container">
+                <a class="navbar-brand d-inline-flex" asp-controller="Home" asp-action="WelcomePage"><img class="d-inline-block" src="../1LayoutIndex/assets/img/favicons/favicon.ico" alt="logo" /><span class="text-1000 fs-3 fw-bold ms-2 text-gradient">Sixter’s Pizza</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+                <div class="collapse navbar-collapse border-top border-lg-0 my-2 mt-lg-0" id="navbarSupportedContent">
+                    <div class="mx-auto pt-5 pt-lg-0 d-block d-lg-none d-xl-block">
+                        <p class="mb-0 fw-bold text-lg-center">
+                            Giao đến: <i class="fas fa-map-marker-alt text-warning mx-2"></i>
+                            <span class="fw-normal" id="selected-address">@ViewBag.SelectedAddress</span>
+                        </p>
+                    </div>
+                    <form class="d-flex mt-4 mt-lg-0 ms-lg-auto ms-xl-0">
+                        <div class="input-group-icon pe-2">
+                            <i class="fas fa-search input-box-icon text-primary"></i>
+                            <input class="form-control border-0 input-box bg-100" type="search" placeholder="Tìm món" aria-label="Search" />
+                        </div>
+                        @* <button class="btn btn-white shadow-warning text-warning" type="submit"> <i class="fas fa-user me-2"></i><a asp-action="Index" asp-controller="Login">Đăng nhập</a></button> *@
+                        @if (Context.Session.GetString("UserId") != null || Context.Session.GetString("Email") != null)
+                        {
+                            <!-- Người dùng đã đăng nhập -->
+                            <button asp-controller="Login" asp-action="LogoutUsual" class="btn btn-white shadow-warning text-warning" type="submit">
+                                <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                            </button>
+                        }
+                        else
+                        {
+                            <!-- Chưa đăng nhập -->
+                            <a asp-controller="Login" asp-action="Index" class="btn btn-white shadow-warning text-warning">
+                                <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                            </a>
+                        }
+                        <a asp-controller="Cart" asp-action="Index" class="btn btn-white shadow-warning text-warning btn-shopping-cart" type="submit"> <i class="fas fa-shopping-cart me-2"></i><span>0</span></a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../1LayoutIndex/vendors/@@popperjs/popper.min.js"></script>
+    <script src="../1LayoutIndex/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="../1LayoutIndex/vendors/is/is.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="../1LayoutIndex/vendors/fontawesome/all.min.js"></script>
+    <script src="../1LayoutIndex/assets/js/theme.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            updateCartQuantity();
+        });
+
+        function updateCartQuantity() {
+            fetch('/api/CartAPI/GetCartQuantity')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('cart quantity: ' + data.quantity);
+                    $('.btn-shopping-cart span').text(data.quantity);
+                })
+                .catch(error => console.error('Error: ', error));
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
+</body>
+
+</html>

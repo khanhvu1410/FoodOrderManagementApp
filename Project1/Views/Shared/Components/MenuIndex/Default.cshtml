@@ -1,0 +1,108 @@
+﻿@model IEnumerable<TCategory>
+<style>
+    .selected-img {
+    border: 4px solid orange;
+    border-radius: 50%;
+    box-sizing: border-box;
+    }
+
+    .selected-text {
+    color: orange !important;
+    }
+</style>
+<div class="row gx-3 justify-content-center">
+    @foreach (var item in Model)
+    {
+        @* var getUrl = "https://localhost:7002/api/productapi/";
+        <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">
+            <a asp-controller="Menu"
+               asp-action="ProductByCategory"
+               asp-route-CategoryID="@item.CategoryId">
+                <div class="card card-span h-100 rounded-circle menu-item" onclick="selectMenuItem(this)">
+                    <img class="img-fluid rounded-circle h-100 menu-img" src="@Url.Content("../icon_menu/" + item.Image)" alt="..." />
+                    <div class="card-body ps-0">
+                        <h5 class="text-center fw-bold text-1000 text-truncate mb-2 menu-text">
+                            @item.Name
+                        </h5>
+                    </div>
+                </div>
+            </a>
+        </div> *@
+        <div class="col-sm-6 col-md-4 col-xl mb-5 h-100"> 
+             <a asp-controller="Menu" 
+                asp-action="ProductByCategory" 
+                asp-route-CategoryID="@item.CategoryId"> 
+                 <div class="card card-span h-100 rounded-circle menu-item" onclick="selectMenuItem(this)"> 
+                     <img class="img-fluid rounded-circle h-100 menu-img" src="@Url.Content("../icon_menu/" + item.Image)" alt="..." /> 
+                     <div class="card-body ps-0"> 
+                         <h5 class="text-center fw-bold text-1000 text-truncate mb-2 menu-text"> 
+                             @item.Name 
+                         </h5> 
+                     </div> 
+                 </div> 
+             </a> 
+        </div>
+    }
+</div>
+
+<script>
+    // Hàm lưu trạng thái đã chọn vào localStorage
+    function saveSelectedCategory(categoryId) {
+        localStorage.setItem('selectedCategory', categoryId);
+    }
+
+    // Hàm tải trạng thái đã chọn từ localStorage và áp dụng lớp CSS
+    function loadSelectedCategory() {
+        const selectedCategoryId = localStorage.getItem('selectedCategory');
+        if (selectedCategoryId) {
+            // Tìm phần tử đã lưu trong localStorage và thêm lớp CSS
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const link = item.querySelector('a');
+                const categoryId = link.getAttribute('asp-route-CategoryID');
+                if (categoryId === selectedCategoryId) {
+                    item.querySelector('.menu-img').classList.add('selected-img');
+                    item.querySelector('.menu-text').classList.add('selected-text');
+                }
+            });
+        }
+    }
+
+    // Gọi hàm này khi trang tải
+    window.onload = loadSelectedCategory;
+
+    function selectMenuItem(element) {
+        // Xóa lớp 'selected-img' và 'selected-text' khỏi tất cả ảnh và chữ
+        document.querySelectorAll('.menu-img').forEach(img => {
+            img.classList.remove('selected-img');
+        });
+        document.querySelectorAll('.menu-text').forEach(text => {
+            text.classList.remove('selected-text');
+        });
+
+        // Thêm lớp 'selected-img' vào ảnh và 'selected-text' vào chữ của mục được chọn
+        element.querySelector('.menu-img').classList.add('selected-img');
+        element.querySelector('.menu-text').classList.add('selected-text');
+
+        // Lưu trạng thái đã chọn vào localStorage
+        const categoryId = element.querySelector('a').getAttribute('asp-route-CategoryID');
+        saveSelectedCategory(categoryId);
+    }
+
+    //AJAX API
+    // function showProductByCategory(getUrl){
+    //     var str = '';
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: getUrl,
+    //         dataType: 'json',
+    //         success: function(data){
+    //             $.each(data, function(key, val{
+    //                 str+='<p>'+val.Name+'</p>' 
+    //             }))
+    //         }
+    //         Error: function(xhr){
+    //             alert(xhr.responseText)
+    //         }
+    //     })
+    // }
+</script>
